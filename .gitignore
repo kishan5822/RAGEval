@@ -11,3 +11,4 @@ uvicorn_err.log
 dist/
 build/
 .DS_Store
+CLAUDE.md
