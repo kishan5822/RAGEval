@@ -252,7 +252,7 @@
     }
     .inp::placeholder { color: var(--mute); }
     select.inp { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-    textarea.inp { height: auto; padding: 10px 12px; resize: vertical; line-height: 1.5; }
+    textarea.inp { height: auto; padding: 10px 12px; resize: none; line-height: 1.5; overflow: hidden; }
     .inp-mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
 
     /* ── Badge / Pill ────────────────────────────────────────── */
@@ -875,7 +875,7 @@
           </template>
 
           <!-- Config popover -->
-          <div class="config-popover" x-show="configOpen" x-cloak @click.stop>
+          <div class="config-popover" x-show="configOpen" x-cloak @click.stop style="right:0;left:auto;">
             <div class="popover-arrow"></div>
 
             <!-- Provider pills -->
@@ -974,6 +974,77 @@
             </button>
           </div>
         </div>
+
+        <!-- User menu -->
+        <div style="position:relative;" x-data="{ userOpen: false }" @click.outside="userOpen=false">
+          <button @click="userOpen=!userOpen"
+                  style="width:30px;height:30px;border-radius:50%;background:var(--ink);border:none;cursor:pointer;
+                         display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                         transition:opacity 0.15s;"
+                  onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'"
+                  title="About the author">
+            <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="5.5" r="2.5" stroke="white" stroke-width="1.4"/>
+              <path d="M2.5 13.5C2.5 11 5 9 8 9s5.5 2 5.5 4.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <!-- User dropdown -->
+          <div x-show="userOpen" x-cloak @click.stop
+               style="position:absolute;right:0;top:calc(100% + 8px);width:220px;
+                      background:var(--canvas);border:1px solid var(--hairline);
+                      border-radius:10px;box-shadow:var(--shadow-l4);z-index:200;overflow:hidden;">
+
+            <!-- Profile header -->
+            <div style="padding:14px 16px;border-bottom:1px solid var(--hairline);background:var(--canvas-soft);">
+              <div style="width:36px;height:36px;border-radius:50%;background:var(--ink);
+                          display:flex;align-items:center;justify-content:center;margin-bottom:8px;">
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="5.5" r="2.5" stroke="white" stroke-width="1.4"/>
+                  <path d="M2.5 13.5C2.5 11 5 9 8 9s5.5 2 5.5 4.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p style="font-size:13px;font-weight:600;color:var(--ink);margin:0 0 2px;">Kishan Raj</p>
+              <p style="font-size:11px;color:var(--mute);margin:0;font-family:'JetBrains Mono',monospace;">AI / GenAI Engineer</p>
+            </div>
+
+            <!-- Links -->
+            <div style="padding:6px;">
+              <a href="https://github.com/kishan5822/LLM_Evaluation" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;
+                        text-decoration:none;color:var(--body);font-size:13px;transition:background 0.12s;"
+                 onmouseover="this.style.background='var(--canvas-soft)'" onmouseout="this.style.background=''">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 1.5a6.5 6.5 0 00-2.055 12.675c.325.06.444-.141.444-.313v-1.1c-1.806.393-2.188-.872-2.188-.872-.295-.75-.72-.95-.72-.95-.589-.402.044-.394.044-.394.65.046.992.668.992.668.578.99 1.517.703 1.887.538.058-.418.226-.703.411-.864-1.442-.164-2.957-.721-2.957-3.21 0-.709.253-1.288.668-1.741-.067-.165-.29-.824.063-1.718 0 0 .545-.174 1.785.665A6.22 6.22 0 018 5.645a6.22 6.22 0 011.627.219c1.239-.84 1.783-.665 1.783-.665.354.894.131 1.553.064 1.718.416.453.667 1.032.667 1.742 0 2.496-1.518 3.044-2.963 3.205.233.201.44.597.44 1.203v1.782c0 .174.117.376.447.312A6.5 6.5 0 008 1.5z" fill="var(--ink)"/>
+                </svg>
+                GitHub repo
+              </a>
+              <a href="https://www.linkedin.com/in/kishan-raj-bb5b82220/" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;
+                        text-decoration:none;color:var(--body);font-size:13px;transition:background 0.12s;"
+                 onmouseover="this.style.background='var(--canvas-soft)'" onmouseout="this.style.background=''">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <rect x="1.5" y="1.5" width="13" height="13" rx="2.5" stroke="#0a66c2" stroke-width="1.4"/>
+                  <path d="M4.5 6.5v5M4.5 4.5v.5" stroke="#0a66c2" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M7.5 11.5V9a1.5 1.5 0 013 0v2.5M7.5 6.5v5" stroke="#0a66c2" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                LinkedIn
+              </a>
+              <div style="height:1px;background:var(--hairline);margin:4px 0;"></div>
+              <a href="https://www.linkedin.com/in/kishan-raj-bb5b82220/" target="_blank" rel="noopener"
+                 style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;
+                        text-decoration:none;color:var(--body);font-size:13px;transition:background 0.12s;"
+                 onmouseover="this.style.background='var(--canvas-soft)'" onmouseout="this.style.background=''">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 2L9.5 6h4.5l-3.5 2.5 1.5 4.5L8 10.5 4 13l1.5-4.5L2 6h4.5z" stroke="var(--warning)" stroke-width="1.3" stroke-linejoin="round"/>
+                </svg>
+                <span>Send feedback</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
   </nav>
@@ -1494,19 +1565,27 @@
           <div x-show="inputMode==='manual'" style="display:flex; flex-direction:column; gap:10px;">
             <div>
               <label class="field-label">Question</label>
-              <textarea x-model="manual.question" rows="2" placeholder="What is RAG?" class="inp"></textarea>
+              <textarea x-model="manual.question" rows="2" placeholder="What is RAG?" class="inp"
+                x-init="$el.style.height=$el.scrollHeight+'px'"
+                @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea>
             </div>
             <div>
               <label class="field-label">RAG answer</label>
-              <textarea x-model="manual.answer" rows="2" placeholder="Your RAG system's output…" class="inp"></textarea>
+              <textarea x-model="manual.answer" rows="2" placeholder="Your RAG system's output…" class="inp"
+                x-init="$el.style.height=$el.scrollHeight+'px'"
+                @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea>
             </div>
             <div>
               <label class="field-label">Contexts <span style="color:var(--mute);font-weight:400;">(one per line)</span></label>
-              <textarea x-model="manual.contexts" rows="3" placeholder="Context chunk 1…&#10;Context chunk 2…" class="inp inp-mono"></textarea>
+              <textarea x-model="manual.contexts" rows="3" placeholder="Context chunk 1…&#10;Context chunk 2…" class="inp inp-mono"
+                x-init="$el.style.height=$el.scrollHeight+'px'"
+                @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea>
             </div>
             <div>
               <label class="field-label">Ground truth</label>
-              <textarea x-model="manual.ground_truth" rows="2" placeholder="The correct expected answer…" class="inp"></textarea>
+              <textarea x-model="manual.ground_truth" rows="2" placeholder="The correct expected answer…" class="inp"
+                x-init="$el.style.height=$el.scrollHeight+'px'"
+                @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea>
             </div>
             <div x-show="manualError" style="font-size:11px;color:var(--error);display:flex;align-items:center;gap:5px;">
               <span>✕</span><span x-text="manualError"></span>
@@ -1554,14 +1633,15 @@
                       <button @click="editingIdx=null" style="font-size:11px;color:var(--mute);background:none;border:none;cursor:pointer;padding:0;"
                               onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--mute)'">✕</button>
                     </div>
-                    <div><label class="field-label-xs">Question</label><textarea x-model="dataset[i].question" rows="2" class="inp" style="font-size:12px;"></textarea></div>
-                    <div><label class="field-label-xs">Answer</label><textarea x-model="dataset[i].answer" rows="2" class="inp" style="font-size:12px;"></textarea></div>
+                    <div><label class="field-label-xs">Question</label><textarea x-model="dataset[i].question" rows="2" class="inp" style="font-size:12px;" x-init="$el.style.height=$el.scrollHeight+'px'" @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea></div>
+                    <div><label class="field-label-xs">Answer</label><textarea x-model="dataset[i].answer" rows="2" class="inp" style="font-size:12px;" x-init="$el.style.height=$el.scrollHeight+'px'" @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea></div>
                     <div>
                       <label class="field-label-xs">Contexts <span style="font-weight:400;text-transform:none;">(one per line)</span></label>
                       <textarea x-model="editContextsStr" rows="2" class="inp inp-mono" style="font-size:11px;"
+                                x-init="$el.style.height=$el.scrollHeight+'px'" @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"
                                 @change="dataset[i].contexts=editContextsStr.split('\n').map(l=>l.trim()).filter(Boolean)"></textarea>
                     </div>
-                    <div><label class="field-label-xs">Ground truth</label><textarea x-model="dataset[i].ground_truth" rows="2" class="inp" style="font-size:12px;"></textarea></div>
+                    <div><label class="field-label-xs">Ground truth</label><textarea x-model="dataset[i].ground_truth" rows="2" class="inp" style="font-size:12px;" x-init="$el.style.height=$el.scrollHeight+'px'" @input="$el.style.height='auto';$el.style.height=$el.scrollHeight+'px'"></textarea></div>
                     <div style="display:flex;gap:6px;">
                       <button @click="saveEdit(i)" class="btn-action" style="font-size:11px;padding:5px 10px;">✓ Save</button>
                       <button @click="deleteDatasetItem(i)" class="btn-action" style="font-size:11px;padding:5px 10px;color:var(--error);border-color:#fecaca;">Delete</button>

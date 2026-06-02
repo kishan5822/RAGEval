@@ -47,7 +47,7 @@ def _build_embeddings(gemini_api_key=""):
         ))
     # Groq/OpenRouter: fall back to local HuggingFace embeddings
     try:
-        from langchain_community.embeddings import HuggingFaceEmbeddings
+        from langchain_huggingface import HuggingFaceEmbeddings
         return LangchainEmbeddingsWrapper(HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
     except Exception:
         return None
