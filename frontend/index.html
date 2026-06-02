@@ -1217,6 +1217,73 @@
             </template>
           </div>
         </div>
+
+        <!-- About -->
+        <div class="card" style="margin-bottom: 16px;">
+          <h2 style="font-size: 13px; font-weight: 600; color: var(--body); margin: 0 0 16px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em;">About RAGEval</h2>
+          <p style="font-size: 14px; color: var(--body); line-height: 1.7; margin: 0 0 12px;">
+            RAGEval is an open-source evaluation dashboard for RAG (Retrieval-Augmented Generation) pipelines. It combines two leading evaluation frameworks — <strong>RAGAS</strong> and <strong>DeepEval</strong> — into a single interface so you can benchmark your system across 8 metrics in one run.
+          </p>
+          <p style="font-size: 14px; color: var(--body); line-height: 1.7; margin: 0 0 12px;">
+            It does <em>not</em> run your RAG pipeline. You bring pre-generated outputs (questions, retrieved contexts, answers, ground truths) and RAGEval scores them using an LLM judge of your choice — Gemini, Groq, or any free OpenRouter model.
+          </p>
+          <p style="font-size: 14px; color: var(--body); line-height: 1.7; margin: 0;">
+            Your API key is used only for the evaluation call and is never stored server-side.
+          </p>
+        </div>
+
+        <!-- How to use -->
+        <div class="card-soft" style="margin-bottom: 64px;">
+          <h2 style="font-size: 13px; font-weight: 600; color: var(--body); margin: 0 0 24px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em;">How to use</h2>
+
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: #eff6ff; border: 1px solid #bfdbfe; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" stroke="#1d4ed8" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <p style="font-size: 14px; font-weight: 600; color: var(--ink); margin: 0 0 4px;">Step 1 — Get a free API key</p>
+                <p style="font-size: 13px; color: var(--body); line-height: 1.6; margin: 0;">
+                  Get a <strong>Gemini</strong> key at <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--canvas); border: 1px solid var(--hairline); padding: 1px 5px; border-radius: 4px;">aistudio.google.com</span>, a <strong>Groq</strong> key at <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--canvas); border: 1px solid var(--hairline); padding: 1px 5px; border-radius: 4px;">console.groq.com</span>, or an <strong>OpenRouter</strong> key at <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--canvas); border: 1px solid var(--hairline); padding: 1px 5px; border-radius: 4px;">openrouter.ai</span> (free models available). All three providers have a free tier.
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: #f5f3ff; border: 1px solid #ddd6fe; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1.5" stroke="#7c3aed" stroke-width="1.5"/><path d="M5 7h6M5 10h4" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <p style="font-size: 14px; font-weight: 600; color: var(--ink); margin: 0 0 4px;">Step 2 — Prepare your dataset (JSON)</p>
+                <p style="font-size: 13px; color: var(--body); line-height: 1.6; margin: 0 0 8px;">Each row needs 4 fields:</p>
+                <pre style="font-size: 11px; font-family: 'JetBrains Mono', monospace; background: var(--canvas); border: 1px solid var(--hairline); border-radius: 6px; padding: 12px; margin: 0; overflow-x: auto; line-height: 1.7; color: var(--ink);">[
+  {
+    "question":   "What is RAG?",
+    "answer":     "RAG stands for ...",
+    "contexts":   ["Retrieved chunk 1", "Chunk 2"],
+    "ground_truth": "RAG is a technique that ..."
+  }
+]</pre>
+                <p style="font-size: 12px; color: var(--mute); margin: 8px 0 0; line-height: 1.5;">Not sure about the format? Click <strong>Try sample dataset</strong> on this page to see a working example pre-loaded.</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 16px; align-items: flex-start;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: #f0fdf4; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <p style="font-size: 14px; font-weight: 600; color: var(--ink); margin: 0 0 4px;">Step 3 — Run &amp; read results</p>
+                <p style="font-size: 13px; color: var(--body); line-height: 1.6; margin: 0;">
+                  Pick your metrics, hit <strong>Run Evaluation</strong>, and go to the Results tab. You'll see aggregate scores, bar and radar charts, and a per-sample breakdown. DeepEval rows show an expandable <em>reason</em> explaining why each score was given — useful for pinpointing retrieval or generation failures.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
