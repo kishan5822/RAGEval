@@ -4,6 +4,8 @@
 
 No answer generation happens inside this app — your API key is used only as a judge. It never gets stored.
 
+**Live demo:** [https://llmevaluation-production.up.railway.app](https://llmevaluation-production.up.railway.app)
+
 ![Home](screenshots/Home.png)
 
 ---
@@ -47,11 +49,13 @@ You bring the outputs from your RAG system (questions + answers + retrieved cont
 
 ## Supported judge providers
 
-| Provider | Key format | Models |
-|----------|-----------|--------|
-| **Gemini** | `AIza…` | gemini-3.5-flash, gemini-3.1-pro, and more |
-| **Groq** | `gsk_…` | Fetched live from Groq API |
-| **OpenRouter** | `sk-or-v1-…` | Free-tier models fetched live |
+| Provider | Get a free key | Key format | Models |
+|----------|---------------|-----------|--------|
+| **Gemini** | [aistudio.google.com](https://aistudio.google.com) | `AIza…` | gemini-3.5-flash, gemini-3.1-pro, and more |
+| **Groq** | [console.groq.com](https://console.groq.com) | `gsk_…` | Fetched live from Groq API |
+| **OpenRouter** | [openrouter.ai](https://openrouter.ai) | `sk-or-v1-…` | Free-tier models fetched live |
+
+All three have a free tier — no credit card required to try.
 
 ---
 
@@ -74,6 +78,8 @@ Open **http://localhost:8000** — no `.env` file, no config. Enter your API key
 
 ## Dataset format
 
+Each row needs 4 fields:
+
 ```json
 [
   {
@@ -85,7 +91,16 @@ Open **http://localhost:8000** — no `.env` file, no config. Enter your API key
 ]
 ```
 
-Upload as JSON, enter manually, or load the built-in sample dataset to try it right away.
+Upload as JSON, enter manually, or click **Try sample dataset** in the UI to load a working example instantly.
+
+---
+
+## How to use
+
+1. **Get a free API key** — Gemini (aistudio.google.com), Groq (console.groq.com), or OpenRouter (openrouter.ai)
+2. **Prepare your dataset** — JSON array with `question`, `answer`, `contexts`, `ground_truth` per row (or use the built-in sample)
+3. **Pick metrics** — select any combination of RAGAS and DeepEval metrics
+4. **Run & read results** — aggregate scores, bar chart, radar chart, and a per-sample table with expandable DeepEval reasoning per score
 
 ---
 
@@ -102,7 +117,7 @@ Your RAG system outputs (JSON)
   └──────────────┘   └──────────────┘
          ↓
   FastAPI → Alpine.js SPA
-  Radar · Bar chart · Heatmap · CSV export
+  Radar · Bar chart · Per-sample breakdown · CSV export
 ```
 
 Single FastAPI process — serves both the API and the frontend. No build step, no Node.js.
@@ -111,7 +126,16 @@ Single FastAPI process — serves both the API and the frontend. No build step, 
 
 ## Deploy
 
-Runs on any single-process host. Works on Railway, Render, and Fly.io free tiers.
+Deployed on Railway with auto-deploy from GitHub. Every push to `main` triggers a redeploy.
+
+To self-host:
+
+```bash
+docker build -t rageval .
+docker run -p 8000:8000 rageval
+```
+
+Or run directly:
 
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 8000
@@ -124,6 +148,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 - **Backend** — Python, FastAPI, RAGAS (VibrantLabs fork), DeepEval
 - **Frontend** — Alpine.js, Tailwind CSS, Plotly.js (all CDN, no build step)
 - **Judge models** — OpenAI-compatible endpoints (Gemini, Groq, OpenRouter)
+- **Hosting** — Railway (auto-deploy from GitHub)
 
 ---
 
