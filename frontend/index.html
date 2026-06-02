@@ -304,6 +304,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      position: relative;
     }
     .nav-logo {
       display: flex;
@@ -835,16 +836,16 @@
         </a>
       </div>
 
-      <!-- Right: page tabs + judge chip -->
-      <div class="flex items-center gap-3 flex-shrink-0">
+      <!-- Center: page tabs -->
+      <div class="hidden sm:flex items-center gap-1" style="position:absolute;left:50%;transform:translateX(-50%);">
+        <button class="nav-tab" :class="page==='home'?'active':''" @click="page='home'">Home</button>
+        <button class="nav-tab" :class="page==='evaluate'?'active':''" @click="page='evaluate'">Evaluate</button>
+        <button class="nav-tab" :class="page==='results'?'active':''" :disabled="!results"
+                @click="results?page='results':null">Results</button>
+      </div>
 
-        <!-- Page tabs (minimal, no pill wrapper) -->
-        <div class="hidden sm:flex items-center gap-1">
-          <button class="nav-tab" :class="page==='home'?'active':''" @click="page='home'">Home</button>
-          <button class="nav-tab" :class="page==='evaluate'?'active':''" @click="page='evaluate'">Evaluate</button>
-          <button class="nav-tab" :class="page==='results'?'active':''" :disabled="!results"
-                  @click="results?page='results':null">Results</button>
-        </div>
+      <!-- Right: judge chip -->
+      <div class="flex items-center gap-3 flex-shrink-0">
 
         <!-- Judge chip / No key — both open config popover -->
         <div style="position: relative;">
