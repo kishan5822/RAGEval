@@ -1,5 +1,9 @@
 import os
 import pandas as pd
+
+# DeepEval checks for OPENAI_API_KEY at import time even when a custom judge is used.
+# Set a dummy value so the SDK doesn't raise a missing-credentials error.
+os.environ.setdefault("OPENAI_API_KEY", "sk-dummy-not-used")
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict
 
