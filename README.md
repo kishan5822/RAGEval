@@ -77,7 +77,7 @@ All three have a free tier — no credit card required to try.
 ## Quick start
 
 ```bash
-git clone https://github.com/kishan5822/LLM_Evaluation.git
+git clone https://github.com/kishan5822/RAGEval.git
 cd LLM_Evaluation
 
 python -m venv venv
